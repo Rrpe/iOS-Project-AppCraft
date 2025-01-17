@@ -10,29 +10,28 @@ struct AddPageView: View {
     let currentDate = Date()
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("새로운 할 일")) {
-                    TextField("할 일 제목을 입력하세요", text: $title)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text("날짜 : \(formatDate(currentDate))")
-                    Toggle(isOn: $isFinish) {
-                        Text("완료 상태")
-                    }
+        Form {
+            Section(header: Text("새로운 할 일")) {
+                TextField("할 일 제목을 입력하세요", text: $title)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("날짜 : \(formatDate(currentDate))")
+                Toggle(isOn: $isFinish) {
+                    Text("완료 상태")
                 }
             }
-            .navigationTitle("할 일 추가")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("저장") {
-                        saveItem()
-                    }
-                    .disabled(title.isEmpty) // 제목이 비어있으면 저장 버튼 비활성화
+        }
+        .navigationTitle("할 일 추가")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("저장") {
+                    saveItem()
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("취소") {
-                        dismiss()
-                    }
+                .disabled(title.isEmpty) // 제목이 비어있으면 저장 버튼 비활성화
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("취소") {
+                    dismiss()
                 }
             }
         }

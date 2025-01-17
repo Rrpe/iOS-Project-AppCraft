@@ -19,7 +19,7 @@ struct ContentView: View {
     @State var showErrorMessage: Bool = false
     
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query(sort: \Item.timestamp, order: .reverse) private var items: [Item]
     
     let defaultItems = [
         Item(title: "운동하기", timestamp: Date(), isFinish: false),
@@ -27,8 +27,9 @@ struct ContentView: View {
     ]
 
     var body: some View {
-            NavigationView {
+            NavigationStack {
                 VStack {
+                    // 검색 부분
                     HStack {
                         if searchToggle {
                             TextField("제목을 입력하세요", text: $searchText)
@@ -72,6 +73,7 @@ struct ContentView: View {
                             }
                     }
                     
+                    // 할 일 목록 리스트
                     List {
                         ForEach(items) { item in
                             NavigationLink(destination: EditPageView(item: item)) {
