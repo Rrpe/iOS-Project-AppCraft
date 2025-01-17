@@ -23,6 +23,7 @@ struct ContentView: View {
     
     @State var searchToggle: Bool = false
     @State var searchText: String = ""
+    @State var showErrorMessage: Bool = false
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
@@ -36,15 +37,42 @@ struct ContentView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding()
                             
-                            NavigationLink(destination: searchResultView(searchText: searchText)) {
-                                Text("Search")
+                            if !filteredItems.isEmpty {
+                                NavigationLink(destination: searchResultView(searchText: searchText)) {
+                                    Text("Search")
+                                        .padding()
+                                        .foregroundStyle(.white)
+                                        .background(.gray)
+                                        .cornerRadius(0)
+                                }
+                            } else {
+                                Button(action: {
+                                    performSearch()
+                                }) {
+                                    Text("Search")
+                                        .padding()
+                                        .foregroundStyle(.white)
+                                        .background(.gray)
+                                        .cornerRadius(0)
+                                }
                             }
-                            .padding()
-                            .foregroundStyle(.white)
-                            .background(.gray)
                         }
+                        
                     }
                     .padding()
+                    if showErrorMessage {
+                        Text("검색 결과가 없습니다.")
+                            .foregroundColor(.red)
+                            .font(.subheadline)
+                            .padding(.horizontal)
+                            .onAppear() {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    withAnimation {
+                                        showErrorMessage = false
+                                    }
+                                }
+                            }
+                    }
                     
                     List {
                         ForEach(items) { item in
@@ -95,14 +123,19 @@ struct ContentView: View {
             }
         }
         
-    private var filteredItems: [Item] {
-            if searchText.isEmpty {
-                return items
-            } else {
-                return items.filter { ($0.title ?? "").localizedCaseInsensitiveContains(searchText) }
-            }
+    // 검색 수행 함수
+    private func performSearch() {
+        if filteredItems.isEmpty {
+            showErrorMessage = true
+        } else {
+            showErrorMessage = false
         }
-    
+    }
+    // 검색 결과 필터링
+    private var filteredItems: [Item] {
+        return items.filter { ($0.title ?? "").localizedCaseInsensitiveContains(searchText) }
+    }
+
     private func toggleFinish(item: Item) {
         item.isFinish.toggle()
     }

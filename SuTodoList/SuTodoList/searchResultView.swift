@@ -19,6 +19,8 @@ struct searchResultView: View {
                     Image(systemName: item.isFinish ? "checkmark.circle.fill" : "circle")
                         .foregroundColor(item.isFinish  ? .green : .gray)
                     Text(item.title ?? "제목 없음")
+                        .strikethrough(item.isFinish, color: .gray)
+                        .foregroundStyle(item.isFinish ? .gray : .black)
                 }
             }
             .navigationTitle("검색 결과")
