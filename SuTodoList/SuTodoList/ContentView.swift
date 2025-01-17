@@ -93,7 +93,6 @@ struct ContentView: View {
                         }
                         .onDelete(perform: deleteItems)
                     }
-                    
                 }
                 .toolbar {
                     ToolbarItem(placement: .principal) {
@@ -103,7 +102,14 @@ struct ContentView: View {
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink(destination: AddPageView()) {
-                                Label("Add", systemImage: "plus")
+                                Label("추가", systemImage: "plus")
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: CalendarView()) {
+                            Label("달력", systemImage: "calendar")
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -115,14 +121,15 @@ struct ContentView: View {
                                 }
                             }
                         }) {
-                            Label("search", systemImage: "magnifyingglass")
+                            Label("검색", systemImage: "magnifyingglass")
                         }
                     }
-                }
+                } // .toolbar
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .onAppear {
                     initializeDefaultItem()
                 }
+                
             }
         }
     
