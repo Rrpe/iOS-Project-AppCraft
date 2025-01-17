@@ -8,13 +8,6 @@
 import SwiftUI
 import SwiftData
 
-struct TodoItem: Identifiable {
-    let id = UUID()
-    var title: String
-    var isCompleted: Bool
-}
-
-
 struct ContentView: View {
     
     @State var title: String = ""
@@ -27,6 +20,11 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    
+    let defaultItems = [
+        Item(title: "운동하기", timestamp: Date(), isFinish: false),
+        Item(title: "책 읽기", timestamp: Date(), isFinish: false)
+    ]
 
     var body: some View {
             NavigationView {
@@ -38,7 +36,7 @@ struct ContentView: View {
                                 .padding()
                             
                             if !filteredItems.isEmpty {
-                                NavigationLink(destination: searchResultView(searchText: searchText)) {
+                                NavigationLink(destination: SearchResultView(searchText: searchText)) {
                                     Text("Search")
                                         .padding()
                                         .foregroundStyle(.white)
@@ -76,19 +74,21 @@ struct ContentView: View {
                     
                     List {
                         ForEach(items) { item in
-                            HStack {
-                                Button(action: {
-                                    toggleFinish(item: item)
-                                }) {
-                                    Image(systemName: item.isFinish ? "checkmark.circle.fill" : "circle")
-                                        .foregroundColor(item.isFinish ? .green : .gray)
-                                        .imageScale(.large)
+                            NavigationLink(destination: EditPageView(item: item)) {
+                                HStack {
+                                    Button(action: {
+                                        toggleFinish(item: item)
+                                    }) {
+                                        Image(systemName: item.isFinish ? "checkmark.circle.fill" : "circle")
+                                            .foregroundColor(item.isFinish ? .green : .gray)
+                                            .imageScale(.large)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    Text(item.title ?? "Not found")
+                                        .strikethrough(item.isFinish, color: .gray)
+                                        .foregroundStyle(item.isFinish ? .gray : .black)
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                                
-                                Text(item.title ?? "Not found")
-                                    .strikethrough(item.isFinish, color: .gray)
-                                    .foregroundStyle(item.isFinish ? .gray : .black)
                             }
                         }
                         .onDelete(perform: deleteItems)
@@ -102,7 +102,7 @@ struct ContentView: View {
                             .bold()
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink(destination: addPageView()) {
+                        NavigationLink(destination: AddPageView()) {
                                 Label("Add", systemImage: "plus")
                         }
                     }
@@ -120,8 +120,20 @@ struct ContentView: View {
                     }
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .onAppear {
+                    initializeDefaultItem()
+                }
             }
         }
+    
+    
+    private func initializeDefaultItem() {
+        if items.isEmpty {
+            for defaultItem in defaultItems {
+                modelContext.insert(defaultItem)
+            }
+        }
+    }
         
     // 검색 수행 함수
     private func performSearch() {

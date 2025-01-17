@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct searchResultView: View {
+struct SearchResultView: View {
     var searchText: String
     
     @Query private var items: [Item] // SwiftData 사용 시 실제 데이터 모델 연결

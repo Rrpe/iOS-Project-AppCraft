@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct addPageView: View {
+struct AddPageView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss // 현재 뷰 닫기
     @State private var title: String = ""
