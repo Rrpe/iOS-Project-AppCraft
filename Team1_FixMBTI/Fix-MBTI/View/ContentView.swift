@@ -12,7 +12,6 @@ struct ContentView: View {
     @Query private var profiles: [MBTIProfile]
     @Query private var missions: [Mission]
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Mission]
     
     @State private var selectedTab = 0  // 현재 선택된 탭을 추적하는 변수
     

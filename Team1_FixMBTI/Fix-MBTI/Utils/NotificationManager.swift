@@ -17,13 +17,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     private var storedMissions: [Mission] = []
     private var storedModelContext: ModelContext?
     
-    // ADDED: 초기화 시 delegate 설정
+    // 초기화 시 delegate 설정
     override init() {
         super.init()
         UNUserNotificationCenter.current().delegate = self
     }
     
-    // 1. 알림 권한 요청
+    // 알림 권한 요청
     func requestPermission() {
         let center = UNUserNotificationCenter.current()
 //        center.delegate = self
@@ -36,13 +36,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    // 🔥 🔥 기존 알림 삭제 (새로운 설정을 반영하기 위함)
+    // 기존 알림 삭제 (새로운 설정을 반영하기 위함)
     func removeAllNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         print("🗑️ 기존 알림 모두 삭제 완료")
     }
     
-    // 🔹 랜덤한 시간 후 미션 알림 예약
+    // 랜덤한 시간 후 미션 알림 예약
     func scheduleMissionNotification(profiles: [MBTIProfile], missions: [Mission], modelContext: ModelContext) {
         
         self.storedProfiles = profiles
@@ -77,7 +77,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         checkPendingNotifications()
     }
     
-    // 3. 앱이 실행 중일 때 알림을 받을 수 있도록 설정
+    // 앱이 실행 중일 때 알림을 받을 수 있도록 설정
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
