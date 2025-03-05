@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String
-    @State var password: String
+    @StateObject private var viewModel = LoginViewModel()
     @State private var isPasswordVisible = false
     
     var body: some View {
@@ -24,14 +23,14 @@ struct LoginView: View {
                 
                 // 이메일 & 비밀번호 텍스트필드
                 VStack(spacing: 12) {
-                    TextField("Email", text: $email)
+                    TextField("Email", text: $viewModel.email)
                         .modifier(CustomSignTextFieldModifier())
                     
                     HStack(spacing: 0) {
                         if isPasswordVisible {
-                            TextField("Password", text: $password)
+                            TextField("Password", text: $viewModel.password)
                         } else {
-                            SecureField("Password", text: $password)
+                            SecureField("Password", text: $viewModel.password)
                         }
                         
                         Button(action: {
@@ -133,10 +132,12 @@ struct LoginView: View {
 
 struct SocialLoginButton: View {
     let title: String
+    let viewModel: LoginViewModel
     
     var body: some View {
         Button(action: {
             // 각 소셜 로그인 버튼 이벤트
+            viewModel.loginWithSocial(provider: title)
         }) {
             Text(title)
                 .font(.system(size: btnFontSize, weight: .bold))
@@ -150,5 +151,5 @@ struct SocialLoginButton: View {
 }
 
 #Preview {
-    LoginView(email: "", password: "")
+    LoginView()
 }
