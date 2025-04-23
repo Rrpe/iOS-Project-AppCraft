@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct TodoJsonApp: App {
+    
+    @StateObject private var todoStore = TodoStore(userId: "user1")
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(todoStore)
         }
     }
 }
