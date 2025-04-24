@@ -27,6 +27,24 @@ struct ContentView: View {
         }
     }
     
+    private var filteredAndSortedTodos: [TodoItem] {
+        let filtered = showCompleted ? todoStore.todos : todoStore.todos.filter { !$0.isCompleted }
+        
+        switch sortOption {
+        case .createdAt:
+            return filtered.sorted { $0.createdAt > $1.createdAt }
+        case .dueDate:
+            return filtered.sorted {
+                if let dueDate1 = $0.dueDate, let dueDate2 = $1.dueDate {
+                    return dueDate1 < dueDate2
+                }
+                return $0.dueDate != nil && $1.dueDate == nil
+            }
+        case .title:
+            return filtered.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        }
+    }
+    
     var body: some View {
         
         NavigationStack {
@@ -49,9 +67,127 @@ struct ContentView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                if filteredAndSortedTodos.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "checkmark.circle")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.gray)
+                        
+                        Text("할 일이 없습니다.")
+                            .font(.title2)
+                            .foregroundStyle(.gray)
+                        
+                        Button("할 일 추가하기") {
+                            isAddTodoSheetPresented = true
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    List {
+                        ForEach(filteredAndSortedTodos) { todo in
+                            NavigationLink(destination: TodoDetailView(todo: todo)) {
+                                TodoItemRow(todo: todo)
+                            }
+                        }
+                        .onDelete(perform: deleteTodos)
+                    }
+                    .listStyle(.insetGrouped)
+                }
+            }
+            .navigationTitle("할 일 목록")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isAddTodoSheetPresented = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        Button(role: .destructive, action: {
+                            todoStore.clearCompletedTodos()
+                        }) {
+                            Label("완료된 항목 삭제", systemImage: "trash")
+                        }
+                        
+                        Button(role: .destructive, action: {
+                            todoStore.clearAllTodos()
+                        }) {
+                            Label("모든 항목 삭제", systemImage: "trash.fill")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            .sheet(isPresented: $isAddTodoSheetPresented) {
+                AddTodoView()
             }
         }
-        
+    } // View
+    
+    private func deleteTodos(at indexSet: IndexSet) {
+        for index in indexSet {
+            let todoToDelete = filteredAndSortedTodos[index]
+            todoStore.deleteTodo(withId: todoToDelete.id)
+        }
+    }
+}
+
+struct TodoItemRow: View {
+    var todo: TodoItem
+    
+    @EnvironmentObject private var todoStore: TodoStore
+    
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                todoStore.toggleCompleted(forId: todo.id)
+            }) {
+                Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(todo.isCompleted ? .green : .gray)
+                    .font(.title2)
+            }
+            .buttonStyle(.plain)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(todo.title)
+                    .font(.headline)
+                    .foregroundStyle(todo.isCompleted ? .gray : .primary)
+                    .strikethrough(todo.isCompleted)
+                
+                HStack(spacing: 12) {
+                    if let description = todo.description, !description.isEmpty {
+                        Label("메모", systemImage: "note.text")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    if let dueDate = todo.dueDate {
+                        Label(dateFormatter.string(from: dueDate), systemImage: "calendar")
+                            .font(.caption)
+                            .foregroundStyle(isDueDatePassed(dueDate) && !todo.isCompleted ? .red : .secondary)
+                    }
+                }
+            }
+        }
+        .padding()
+    }
+    
+    private func isDueDatePassed(_ dueDate: Date) -> Bool {
+        return dueDate < Date()
     }
 }
 
