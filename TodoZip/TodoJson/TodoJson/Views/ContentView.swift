@@ -139,6 +139,7 @@ struct ContentView: View {
     }
 }
 
+// MARK: - 7. TodoItemRow 정의
 struct TodoItemRow: View {
     var todo: TodoItem
     
@@ -154,7 +155,7 @@ struct TodoItemRow: View {
     var body: some View {
         HStack {
             Button(action: {
-                todoStore.toggleCompleted(forId: todo.id)
+                todoStore.toggleCompletion(forId: todo.id)
             }) {
                 Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
                     .foregroundStyle(todo.isCompleted ? .green : .gray)

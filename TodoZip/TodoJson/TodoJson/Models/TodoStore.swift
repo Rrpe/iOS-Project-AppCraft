@@ -11,7 +11,7 @@ import Combine
 // MARK: - 4. TodoStore 클래스 정의 (데이터 관리 및 저장)
 class TodoStore: ObservableObject {
     @Published var todos: [TodoItem] = []
-//    @Published var todos = [TodoItem]()
+    //    @Published var todos = [TodoItem]()
     
     private let userId: String
     
@@ -59,6 +59,12 @@ class TodoStore: ObservableObject {
     
     func deleteTodo(withId id: UUID) {
         todos.removeAll { $0.id == id }
+    }
+    
+    func toggleCompletion(forId id: UUID) {
+        if let index = todos.firstIndex(where: { $0.id == id }) {
+            todos[index].toggleCompletion()
+        }
     }
     
     func saveTodos() {

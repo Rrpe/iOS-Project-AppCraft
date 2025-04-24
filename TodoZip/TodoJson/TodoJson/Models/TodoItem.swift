@@ -33,7 +33,7 @@ struct TodoItem: Identifiable, Codable, Equatable {
         self.userId = userId
     }
     
-    mutating func toggleCompleted() {
+    mutating func toggleCompletion() {
         isCompleted.toggle()
     }
     
