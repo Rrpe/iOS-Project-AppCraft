@@ -36,7 +36,7 @@ class TodoStore: ObservableObject {
     
     private func setupAutoSave() {
         $todos
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 self?.saveTodos()
             }

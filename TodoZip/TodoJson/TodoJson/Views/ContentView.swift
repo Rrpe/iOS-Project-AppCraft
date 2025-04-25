@@ -183,6 +183,7 @@ struct TodoItemRow: View {
                     }
                 }
             }
+            
         }
         .padding()
     }
