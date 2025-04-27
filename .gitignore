@@ -1,5 +1,8 @@
 *~
 .DS_Store
+.env
+node_modules/
+npm-debug.log
 GoogleService-Info.plist
 
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,cocoapods,firebase,git
