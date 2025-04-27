@@ -95,6 +95,7 @@ struct ContentView: View {
                         .onDelete(perform: deleteTodos)
                     }
                     .listStyle(.insetGrouped)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 }
             }
             .navigationTitle("할 일 목록")
@@ -162,6 +163,7 @@ struct TodoItemRow: View {
                     .font(.title2)
             }
             .buttonStyle(.plain)
+            .padding(.trailing)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(todo.title)
@@ -183,7 +185,6 @@ struct TodoItemRow: View {
                     }
                 }
             }
-            
         }
         .padding()
     }
