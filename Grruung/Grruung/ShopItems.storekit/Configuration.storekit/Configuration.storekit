@@ -1,0 +1,225 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "462C092F",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "9900",
+      "familyShareable" : false,
+      "internalID" : "4952BEDA",
+      "localizations" : [
+        {
+          "description" : "Unlock a new character slot in the paradise!",
+          "displayName" : "Unlock Ticket for Paradise x1",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "캐릭터 동산에 슬롯 하나를 잠금해제할 수 있습니다.",
+          "displayName" : "동산 잠금해제x1",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.charDex_unlock_ticket",
+      "referenceName" : "charDex_unlock_ticket",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "1200",
+      "familyShareable" : false,
+      "internalID" : "41F45597",
+      "localizations" : [
+        {
+          "description" : "A small pouch of 5 Diamonds",
+          "displayName" : "5 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "입문자를 위한 소형 다이아 팩입니다.",
+          "displayName" : "5 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_5",
+      "promotionalImageID" : "D77B3012",
+      "referenceName" : "diamond_5",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "2500",
+      "familyShareable" : false,
+      "internalID" : "B5E52532",
+      "localizations" : [
+        {
+          "description" : "A value pack for light users. More diamonds, better flexibility.",
+          "displayName" : "12 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "가성비 좋은 소형 팩! 조금 더 여유 있게 사용해보세요.",
+          "displayName" : "12 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_12",
+      "referenceName" : "diamond_12",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "5900",
+      "familyShareable" : false,
+      "internalID" : "A2DB8867",
+      "localizations" : [
+        {
+          "description" : "A solid amount of diamonds for everyday use.",
+          "displayName" : "30 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "일상적으로 사용하기 좋은 다이아 팩입니다.",
+          "displayName" : "30 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_30",
+      "referenceName" : "diamond_30",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "12000",
+      "familyShareable" : false,
+      "internalID" : "B3A981DC",
+      "localizations" : [
+        {
+          "description" : "Great for unlocking special features and rare items.",
+          "displayName" : "65 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "다양한 프리미엄 아이템 구매에 적합한 중형 팩입니다.",
+          "displayName" : "65 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_65",
+      "referenceName" : "diamond_65",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "25000",
+      "familyShareable" : false,
+      "internalID" : "41057862",
+      "localizations" : [
+        {
+          "description" : "For players who want to dive deeper into the game.",
+          "displayName" : "140 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "게임을 더 깊이 즐기고 싶은 유저를 위한 대형 팩입니다.",
+          "displayName" : "140 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_140",
+      "referenceName" : "diamond_140",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "49000",
+      "familyShareable" : false,
+      "internalID" : "FBB53C70",
+      "localizations" : [
+        {
+          "description" : "The best value pack with a huge bonus of diamonds!",
+          "displayName" : "300 Diamonds",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "가장 많은 혜택을 제공하는 초대형 팩!",
+          "displayName" : "300 다이아",
+          "locale" : "ko"
+        }
+      ],
+      "productID" : "com.smallearedcat.grruung.diamond_300",
+      "promotionalImageID" : "663C965F",
+      "referenceName" : "diamond_300",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "ko",
+    "_storefront" : "KOR",
+    "_storeKitErrors" : [
+      {
+        "current" : {
+          "index" : 2,
+          "type" : "generic"
+        },
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : {
+          "index" : 1,
+          "type" : "purchase"
+        },
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
