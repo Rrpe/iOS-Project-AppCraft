@@ -34,5 +34,5 @@ SwiftUI를 중심으로 학습하고 있으며, UIKit도 함께 공부 중
 
 ## 💬 Contact
 
-📧 이메일: [페르](kel_777@naver.com)
-💼 GitHub: [Rrpe](https://github.com/Rrpe)
+📧 이메일: [kel_777@naver.com]
+💼 GitHub: [페르](https://github.com/Rrpe) 
